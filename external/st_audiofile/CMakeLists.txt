@@ -12,15 +12,22 @@ target_include_directories(st_audiofile
     PUBLIC "src")
 
 ###
+find_package(Stb REQUIRED)
+find_package(wavpack CONFIG REQUIRED)
+find_library(libaiff_LIBRARY libaiff REQUIRED)
+find_path(libaiff_INCLUDE_DIRS libaiff/libaiff.h REQUIRED)
+
 add_library(st_audiofile_formats STATIC EXCLUDE_FROM_ALL
     "src/st_audiofile_libs.c")
 target_include_directories(st_audiofile_formats
     PUBLIC "src"
-    PUBLIC "thirdparty/dr_libs"
-    PUBLIC "thirdparty/stb_vorbis")
+    PUBLIC ${Stb_INCLUDE_DIR}
+    PUBLIC WavPack::WavPack)
 
-add_subdirectory("thirdparty/libaiff" EXCLUDE_FROM_ALL)
-target_link_libraries(st_audiofile_formats PUBLIC aiff::aiff)
+
+target_link_libraries(st_audiofile_formats PRIVATE ${libaiff_LIBRARY})
+target_include_directories(st_audiofile_formats PUBLIC ${libaiff_INCLUDE_DIRS})
+
 
 set(WAVPACK_BUILD_COOLEDIT_PLUGIN OFF)
 set(WAVPACK_BUILD_PROGRAMS OFF)
@@ -35,8 +42,7 @@ if(APPLE AND PROJECT_SYSTEM_PROCESSOR MATCHES "(arm.*)")
     SET(WAVPACK_ENABLE_ASM OFF)
 endif()
 
-add_subdirectory("thirdparty/wavpack" EXCLUDE_FROM_ALL)
-target_link_libraries(st_audiofile_formats PUBLIC wavpack)
+target_link_libraries(st_audiofile_formats PUBLIC WavPack::WavPack)
 
 ###
 if(NOT ST_AUDIO_FILE_USE_SNDFILE)

@@ -497,7 +497,7 @@ uint64_t st_read_s16(st_audio_file* af, int16_t* buffer, uint64_t count)
     case st_audio_file_aiff:
         {
             uint32_t channels = af->cache.aiff.channels;
-            unsigned samples = AIFF_ReadSamples16Bit(af->aiff, buffer, (unsigned)(channels * count));
+            unsigned samples = AIFF_ReadSamples(af->aiff, buffer, (unsigned)(channels * count));
             count = ((int)samples != -1) ? (samples / channels) : 0;
         }
         break;

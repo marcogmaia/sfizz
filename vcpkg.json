@@ -1,0 +1,15 @@
+{
+  "$schema": "https://raw.githubusercontent.com/microsoft/vcpkg-tool/main/docs/vcpkg.schema.json",
+  "name": "sfizz",
+  "version": "1.2.3",
+  "supports": "!arm32 & !uwp",
+  "dependencies": [
+    "abseil",
+    "drlibs",
+    "libaiff",
+    "ghc-filesystem",
+    "simde",
+    "stb",
+    "wavpack"
+  ]
+}
