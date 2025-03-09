@@ -334,7 +334,7 @@ if(SFIZZ_SHARED)
     )
     sfizz_enable_lto_if_needed(sfizz_shared)
 
-    if(NOT MSVC)
+    # if(NOT MSVC)
         install(TARGETS sfizz_shared
             RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR} COMPONENT "runtime"
             LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR} COMPONENT "runtime"
@@ -351,7 +351,7 @@ if(SFIZZ_SHARED)
             DESTINATION ${CMAKE_INSTALL_LIBDIR}/pkgconfig
             COMPONENT "development"
         )
-    endif()
+    # endif()
 endif()
 
 # Generic library alias
