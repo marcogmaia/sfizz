@@ -22,9 +22,6 @@
 #include "SynthPrivate.h"
 #include "utility/Size.h"
 #include <type_traits>
-#include <invoke.hpp/invoke.hpp>
-
-namespace inv = invoke_hpp;
 
 static uint64_t hashMessagePath(const char* path, const char* sig)
 {
@@ -481,13 +478,13 @@ public:
     {
         if (auto region = getRegion())
             if (auto filter = getFilter(*region))
-                inv::invoke(std::forward<F>(f), this, (*filter).*member, std::forward<Args>(args)...);
+                std::invoke(std::forward<F>(f), this, (*filter).*member, std::forward<Args>(args)...);
     }
 
     template <class T, class F, class... Args>
     void dispatch(F&& f, T SynthConfig::*member, Args&&... args)
     {
-        inv::invoke(std::forward<F>(f), this, (impl.resources_.getSynthConfig()).*member, std::forward<Args>(args)...);
+        std::invoke(std::forward<F>(f), this, (impl.resources_.getSynthConfig()).*member, std::forward<Args>(args)...);
     }
 
     template <class T, class F, class... Args>
@@ -496,14 +493,14 @@ public:
         if (auto region = getRegion())
             if (auto lfo = getLFO(*region))
                 if (auto sub = getLFOSub(*lfo))
-                    inv::invoke(std::forward<F>(f), this, (*sub).*member, std::forward<Args>(args)...);
+                    std::invoke(std::forward<F>(f), this, (*sub).*member, std::forward<Args>(args)...);
     }
 
     template <class T, class F, class... Args>
     void dispatch(F&& f, T Region::*member, Args&&... args)
     {
         if (auto region = getRegion())
-            inv::invoke(std::forward<F>(f), this, (*region).*member, std::forward<Args>(args)...);
+            std::invoke(std::forward<F>(f), this, (*region).*member, std::forward<Args>(args)...);
     }
 
     template <class T, class F, class... Args>
@@ -511,7 +508,7 @@ public:
     {
         if (auto region = getRegion())
             if (auto eq = getEQ(*region))
-                inv::invoke(std::forward<F>(f), this, (*eq).*member, std::forward<Args>(args)...);
+                std::invoke(std::forward<F>(f), this, (*eq).*member, std::forward<Args>(args)...);
     }
 
     template <class T, class F, class... Args>
@@ -519,7 +516,7 @@ public:
     {
         if (auto region = getRegion())
             if (auto lfo = getLFO(*region))
-                inv::invoke(std::forward<F>(f), this, (*lfo).*member, std::forward<Args>(args)...);
+                std::invoke(std::forward<F>(f), this, (*lfo).*member, std::forward<Args>(args)...);
     }
 
     template <class T, class F, class... Args>
@@ -528,7 +525,7 @@ public:
         if (auto region = getRegion())
             if (auto eg = getEG(*region))
                 if (auto point = getEGPoint(*eg))
-                    inv::invoke(std::forward<F>(f), this, (*point).*member, std::forward<Args>(args)...);
+                    std::invoke(std::forward<F>(f), this, (*point).*member, std::forward<Args>(args)...);
     }
 
     // No need to dispatch for voices, they are read-only for now
