@@ -2,7 +2,7 @@ include(CMakeDependentOption)
 include(CheckCCompilerFlag)
 include(CheckCXXCompilerFlag)
 include(CheckCXXSourceCompiles)
-include(GNUWarnings)
+# include(GNUWarnings)
 
 # C++14 is the minimum standard version required by Abseil LTS 20230125.1 and later, see
 # https://github.com/abseil/abseil-cpp/releases/tag/20230125.1
